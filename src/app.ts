@@ -1,13 +1,10 @@
-import express, { Request, Response } from "express";
-import dotenv from "dotenv";
+import { Request, Response } from "express";
 import ToDo from "./entities/ToDo";
-
-dotenv.config();
+import express from "express";
 
 const app = express();
-app.use(express.json());
 
-const PORT: number = Number(process.env.port) || 3000;
+app.use(express.json());
 
 // to-dos in memory data structure
 let toDos_inMemoryDB: ToDo[] = [
@@ -18,19 +15,19 @@ let toDos_inMemoryDB: ToDo[] = [
     priority: "high",
   },
   {
-    id: Date.now() + 1,
+    id: 2,
     title: "Take a break",
     done: true,
     priority: "normal",
   },
   {
-    id: Date.now() + 2,
+    id: Date.now() + 3,
     title: "Prepare food",
     done: false,
     priority: "low",
   },
   {
-    id: Date.now() + 3,
+    id: Date.now() + 4,
     title: "Play football",
     done: true,
     priority: "high",
@@ -65,9 +62,12 @@ app.get("/api/to-dos/high-priority", (req: Request, res: Response) => {
 
 // 2. Read a specific to-do with given an id
 app.get("/api/to-dos/:id", (req: Request, res: Response) => {
-  res
-    .status(200)
-    .send(toDos_inMemoryDB.filter((toDo) => toDo.id === Number(req.params.id)));
+  const toDo = toDos_inMemoryDB.filter(
+    (toDo) => toDo.id === Number(req.params.id)
+  );
+
+  if (toDo[0]) res.send(toDo[0]).status(200);
+  else res.sendStatus(404);
 });
 
 // Update
@@ -96,5 +96,4 @@ app.delete("/api/to-dos/delete/done/:id", (req: Request, res: Response) => {
   res.sendStatus(204).end();
 });
 
-// Listen to the port defined at the top
-app.listen(PORT);
+export default app;
