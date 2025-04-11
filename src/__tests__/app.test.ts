@@ -75,7 +75,7 @@ describe("GET /api/to-dos/high-priority", () => {
       response = await request(app).get(url);
     });
 
-    it("should responed with a status code 200", () => {
+    it("should respond with a status code 200", () => {
       expect(response.status).toBe(200);
     });
 
@@ -84,5 +84,45 @@ describe("GET /api/to-dos/high-priority", () => {
         expect(toDo).toHaveProperty("priority", "high");
       });
     });
+  });
+});
+
+// Update
+describe("PATCH /api/to-dos/update/done/:id", () => {
+  const url = "/api/to-dos/update/done/2";
+
+  describe("given the correct url params", () => {
+    let response: any;
+
+    beforeAll(async () => {
+      response = await request(app).patch(url);
+    });
+
+    it("should return an updated to-do with done as true", () => {
+      expect(response.status).toBe(200);
+    });
+
+    it("should specify json in the content type header", () => {
+      expect(response.header["content-type"]).toEqual(
+        expect.stringContaining("json")
+      );
+    });
+  });
+
+  describe("given an id that doesnt exist", () => {
+    it("should return a status code 404", async () => {
+      await request(app)
+        .patch(url + "1850")
+        .expect(404);
+    });
+  });
+});
+
+// Delete
+describe("DELETE /api/to-dos/delete/done/:id", () => {
+  const url = "/api/to-dos/delete/done/2";
+
+  it("should return a status code 204", async () => {
+    await request(app).delete(url).expect(204);
   });
 });
