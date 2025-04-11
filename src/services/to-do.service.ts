@@ -1,11 +1,17 @@
+import { CreateToDoDto } from "../dtos/create-to-do.dto";
 import {
   ToDo,
+  create,
   deleteToDo,
   getAll,
   getHighPriority,
   getOne,
   updateToDo,
 } from "../repositories/to-do.repository";
+
+export const createToDoService = (createToDoDto: CreateToDoDto): ToDo => {
+  return create(createToDoDto);
+};
 
 export const findAllService = (): ToDo[] => getAll();
 

@@ -126,3 +126,30 @@ describe("DELETE /api/to-dos/delete/done/:id", () => {
     await request(app).delete(url).expect(204);
   });
 });
+
+// Create
+describe("POST /api/to-dos/create", () => {
+  let response: any;
+
+  beforeAll(async () => {
+    const url = "/api/to-dos/create";
+    response = await request(app).post(url).send({
+      title: "Study DSA",
+      priority: "normal",
+    });
+  });
+
+  it("should return a ToDo object", () => {
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        done: false,
+        title: "Study DSA",
+        priority: "normal",
+      })
+    );
+  });
+
+  it("should respond with a status code 201", () => {
+    expect(response.status).toBe(201);
+  });
+});

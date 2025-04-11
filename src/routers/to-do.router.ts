@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  create,
   deleteToDo,
   findAll,
   findHighPriority,
@@ -8,6 +9,11 @@ import {
 } from "../controllers/to-do.controller";
 
 const router = Router();
+
+/* CRUD Ops */
+
+// Create
+router.post("/create", create);
 
 // Read
 // 1. Read all

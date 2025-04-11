@@ -1,3 +1,5 @@
+import { CreateToDoDto } from "../dtos/create-to-do.dto";
+
 export interface ToDo {
   id: number;
   title: string;
@@ -32,6 +34,19 @@ let toDos_inMemoryDB: ToDo[] = [
     priority: "high",
   },
 ];
+
+export const create = (createToDoDto: CreateToDoDto): ToDo => {
+  const toDo = {
+    id: Date.now(),
+    title: createToDoDto.title,
+    done: false,
+    priority: createToDoDto.priority,
+  };
+
+  toDos_inMemoryDB.push(toDo);
+
+  return toDo;
+};
 
 export const getAll = (): ToDo[] => toDos_inMemoryDB;
 

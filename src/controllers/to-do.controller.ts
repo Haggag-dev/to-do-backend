@@ -5,7 +5,13 @@ import {
   findAllService,
   updateToDoService,
   findOneService,
+  createToDoService,
 } from "../services/to-do.service";
+
+export const create = (req: Request, res: Response) => {
+  const toDo = createToDoService(req.body);
+  res.status(201).json(toDo);
+};
 
 export const findAll = (req: Request, res: Response) => {
   const toDos = findAllService();
