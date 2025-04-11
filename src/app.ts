@@ -17,7 +17,7 @@ let toDos_inMemoryDB: ToDo[] = [
   {
     id: 2,
     title: "Take a break",
-    done: true,
+    done: false,
     priority: "normal",
   },
   {
