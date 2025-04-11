@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../app";
-import ToDo from "../entities/ToDo";
+import { ToDo } from "../repositories/to-do.repository";
 
 // Read all
 describe("GET /api/to-dos", () => {
